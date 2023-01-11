@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+// Imports
+import HighScore from './HighScore'
+
 const center = {
   textAlign: 'Center'
 }
@@ -26,6 +29,7 @@ function Btn({ children, onClick }) {
 function Counter() {
   const [counter, setCounter] = useState(0);
   const [randomText, setRandomText] = useState('This is random Text');
+  const [overTen, setOverTen] = useState(false);
 
   function handleIncrement() {
     setCounter(counter + 1)
@@ -35,28 +39,45 @@ function Counter() {
     setCounter(counter <= 0 ? 0 : counter - 1)
   }
 
-  function handleReset() {
+  function handleReset(event) {
     setCounter(0)
     setRandomText('Random text is updated')
+    console.log(event)
   }
 
   useEffect(() => {
     console.log('Component lifecycle')
     // updaterandomText(`Random text is updated`);
+/*     if(counter > 10) {
+      setOverTen(true)
+    } */
+        if (counter > 10 && overTen == false) {
+          console.log('Updating overTen')
+          setOverTen(true)
+        }
   }, [counter])
 
   return (
     <div style={center}>
-      <Btn onClick={handleIncrement}>+</Btn>
-      <span style={textStyle}>{counter}</span>
+      <br />
+      <br />
+      <br />
+      <br />
+      <span style={textStyle}>You clicked the button {counter} times</span>
+      <br />
       <Btn onClick={handleDecrement}>-</Btn>
+      <Btn onClick={handleIncrement}>+</Btn>
+      <br />
+      <br />
       <div style={center}>
-        <Btn onClick={handleReset}>Reset</Btn>
+        {/* <Btn onClick={handleReset}>Reset</Btn> */}
+        <HighScore overTen={overTen} onReset={(e) => handleReset(e)} />
       </div>
       <br />
+
       <span>{randomText}</span>
     </div>
-  );
+  )
 }
 
 export default Counter
