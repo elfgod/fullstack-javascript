@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // Imports
 import HighScore from './HighScore'
+import './css/style.css'
 
 const center = {
   textAlign: 'Center'
