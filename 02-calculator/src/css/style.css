@@ -4,6 +4,7 @@
 }
 
 .display {
+
   grid-column-start: 1;
   grid-column-end: 5;
   height: 40px;

@@ -6,7 +6,7 @@ import '../css/style.css'
 const Button = (props) => {
   return (
     <div>
-      <button className={props.className} onClick={props.value}>{props.value}</button>
+      <button className={props.className} onClick={() => props.onClick(props.value)}>{props.value}</button>
     </div>
   )
 }
