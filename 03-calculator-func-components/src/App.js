@@ -1,38 +1,51 @@
 // Imports
-import React from 'react';
+import React from 'react'
 import Button from './components/Button'
 
 // Import styles
 import './css/style.css'
 
 const App = () => {
-
   const [calc, setCalc] = React.useState({
     current: '0',
     total: '0',
     isInitial: true,
-    preOp: ''
+    preOp: '',
   })
 
   function handleNumber(value) {
     // alert('handle number click:' + value)
 
+    // Adds value to newValue
     let newValue = value
 
-    if(!calc.isInitial) {
+    if (!calc.isInitial) {
       newValue = calc.current + value
     }
-    setCalc({ current: newValue, total: calc.total, isInitial: false })
+    setCalc({
+      current: newValue,
+      total: calc.total,
+      isInitial: false,
+      preOp: calc.preOp,
+    })
   }
 
   function handleOperator(value) {
     const total = doCalculation()
-    
-    setCalc({current: total.toString, total: total.toString(), isInitial: true, preOp: value})
+
+    setCalc({
+      current: total.toString(),
+      total: total.toString(),
+      isInitial: true,
+      preOp: value, 
+    })
   }
 
   function doCalculation() {
     let total = parseInt(calc.total)
+    // debugger
+    console.log(calc)
+
     switch (calc.preOp) {
       case '+':
         total += parseInt(calc.current)
@@ -62,19 +75,13 @@ const App = () => {
       current: '0',
       total: '0',
       isInitial: true,
-      prepOn: ''
+      preOn: '',
     })
-  }
-
-  function handleEquals() {
-    let total = doCalculation()
-
-    setCalc({current: total.toString(), total: total.toString(), isInitial: true, preOp: '='})
   }
 
   return (
     <div className='calculator'>
-      <div className='display'>{calc.current}</div>
+      <div className='display'>{renderDisplay()}</div>
       <Button value='7' onClick={handleNumber} />
       <Button value='8' onClick={handleNumber} />
       <Button value='9' onClick={handleNumber} />
@@ -92,7 +99,7 @@ const App = () => {
 
       <Button value='C' onClick={handleClear} />
       <Button value='0' onClick={handleNumber} />
-      <Button value='=' />
+      <Button value='=' onClick={handleOperator} />
       <Button className='operator' value='+' onClick={handleOperator} />
     </div>
   )
